@@ -1,17 +1,18 @@
 name: Create Tag on Dispatch
 
+permissions:
+  contents: write # needed for creating the GH release
+  id-token: write
+
 on: [repository_dispatch]
 jobs:
   Create-tag:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write # needed for creating the GH release
-      id-token: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Get Github App secret out of vault
+      - name: Read Vault secrets
         uses: rancher-eio/read-vault-secrets@main
         with:
           secrets: |
